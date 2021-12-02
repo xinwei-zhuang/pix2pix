@@ -1,0 +1,630 @@
+name: "CaffeNet"
+input: "data"
+input_shape {
+  dim: 1
+  dim: 3
+  dim: 256
+  dim: 256
+
+}
+
+#goes from [0-255] range to [0-1] range
+layer {
+    name: "scale"
+    type: "Power"
+    bottom: "data"
+    top: "data_s"
+    power_param {
+        scale:0.0039215686
+        shift:0
+        power:1
+    }
+    
+}
+
+######################################
+##            ENCODER 1             ##
+######################################
+layer {
+  name: "encoder_1_conv"
+  type: "Convolution"
+  bottom: "data_s"
+  top: "encoder_1_conv"
+  convolution_param {
+    num_output: 64
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+layer {
+  name: "encoder_1_relu"
+  type: "ReLU"
+  relu_param {
+    negative_slope : 0.2
+  }
+  bottom: "encoder_1_conv"
+  top: "encoder_1"
+}
+
+
+######################################
+##            ENCODER 2             ##
+######################################
+layer {
+  name: "encoder_2_conv"
+  type: "Convolution"
+  bottom: "encoder_1"
+  top: "encoder_2_conv"
+  convolution_param {
+    num_output: 128
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "encoder_2_conv"
+    top: "encoder_2_bn"
+    name: "encoder_2_bn"
+    type: "BatchNorm"
+}
+
+layer {
+  name: "encoder_relu_2"
+  type: "ReLU"
+  relu_param {
+    negative_slope : 0.2
+  }
+  bottom: "encoder_2_bn"
+  top: "encoder_2"
+}
+
+
+
+######################################
+##            ENCODER 3             ##
+######################################
+layer {
+  name: "encoder_3_conv"
+  type: "Convolution"
+  bottom: "encoder_2"
+  top: "encoder_3_conv"
+  convolution_param {
+    num_output: 256
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "encoder_3_conv"
+    top: "encoder_3_bn"
+    name: "encoder_3_bn"
+    type: "BatchNorm"
+}
+
+layer {
+  name: "encoder_relu_3"
+  type: "ReLU"
+  relu_param {
+    negative_slope : 0.2
+  }
+  bottom: "encoder_3_bn"
+  top: "encoder_3"
+}
+
+
+
+
+######################################
+##            ENCODER 4             ##
+######################################
+layer {
+  name: "encoder_4_conv"
+  type: "Convolution"
+  bottom: "encoder_3"
+  top: "encoder_4_conv"
+  convolution_param {
+    num_output: 512
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "encoder_4_conv"
+    top: "encoder_4_bn"
+    name: "encoder_4_bn"
+    type: "BatchNorm"
+}
+
+layer {
+  name: "encoder_relu_4"
+  type: "ReLU"
+  relu_param {
+    negative_slope : 0.2
+  }
+  bottom: "encoder_4_bn"
+  top: "encoder_4"
+}
+
+
+
+
+######################################
+##            ENCODER 5             ##
+######################################
+layer {
+  name: "encoder_5_conv"
+  type: "Convolution"
+  bottom: "encoder_4"
+  top: "encoder_5_conv"
+  convolution_param {
+    num_output: 512
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "encoder_5_conv"
+    top: "encoder_5_bn"
+    name: "encoder_5_bn"
+    type: "BatchNorm"
+}
+
+layer {
+  name: "encoder_relu_5"
+  type: "ReLU"
+  relu_param {
+    negative_slope : 0.2
+  }
+  bottom: "encoder_5_bn"
+  top: "encoder_5"
+}
+
+
+
+
+######################################
+##            ENCODER 6             ##
+######################################
+layer {
+  name: "encoder_6_conv"
+  type: "Convolution"
+  bottom: "encoder_5"
+  top: "encoder_6_conv"
+  convolution_param {
+    num_output: 512
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "encoder_6_conv"
+    top: "encoder_6_bn"
+    name: "encoder_6_bn"
+    type: "BatchNorm"
+}
+
+layer {
+  name: "encoder_relu_6"
+  type: "ReLU"
+  relu_param {
+    negative_slope : 0.2
+  }
+  bottom: "encoder_6_bn"
+  top: "encoder_6"
+}
+
+
+
+
+######################################
+##            ENCODER 7             ##
+######################################
+layer {
+  name: "encoder_7_conv"
+  type: "Convolution"
+  bottom: "encoder_6"
+  top: "encoder_7_conv"
+  convolution_param {
+    num_output: 512
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "encoder_7_conv"
+    top: "encoder_7_bn"
+    name: "encoder_7_bn"
+    type: "BatchNorm"
+}
+
+layer {
+  name: "encoder_relu_7"
+  type: "ReLU"
+  relu_param {
+    negative_slope : 0.2
+  }
+  bottom: "encoder_7_bn"
+  top: "encoder_7"
+}
+
+
+
+
+######################################
+##            ENCODER 8             ##
+######################################
+layer {
+  name: "encoder_8_conv"
+  type: "Convolution"
+  bottom: "encoder_7"
+  top: "encoder_8_conv"
+  convolution_param {
+    num_output: 512
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+  name: "encoder_relu_8"
+  type: "ReLU"
+  relu_param {
+    negative_slope : 0.2
+  }
+  bottom: "encoder_8_conv"
+  top: "encoder_8"
+}
+
+
+
+
+
+######################################
+##            DECODER 8             ##
+######################################
+layer {
+  name: "decoder_8_conv"
+  type: "Deconvolution"
+  bottom: "encoder_8"
+  top: "decoder_8_conv"
+  convolution_param {
+    num_output: 512
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "decoder_8_conv"
+    top: "decoder_8_bn"
+    name: "decoder_8_bn"
+    type: "BatchNorm"
+}
+
+layer {
+  name: "decoder_8_drop"
+  type: "Dropout"
+  bottom: "decoder_8_bn"
+  top: "decoder_8_bn"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+
+layer {
+  name: "decoder_8_relu"
+  type: "ReLU"
+  bottom: "decoder_8_bn"
+  top: "decoder_8"
+}
+
+
+
+
+
+
+
+######################################
+##            DECODER 7             ##
+######################################
+
+layer {
+  name: "decoder_7_concat"
+  type: "Concat"
+  bottom: "encoder_7"
+  bottom: "decoder_8"
+  top: "decoder_7_concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+
+layer {
+  name: "decoder_7_conv"
+  type: "Deconvolution"
+  bottom: "decoder_7_concat"
+  top: "decoder_7_conv"
+  convolution_param {
+    num_output: 512
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "decoder_7_conv"
+    top: "decoder_7_bn"
+    name: "decoder_7_bn"
+    type: "BatchNorm"
+}
+
+layer {
+  name: "decoder_7_drop"
+  type: "Dropout"
+  bottom: "decoder_7_bn"
+  top: "decoder_7_bn"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+
+layer {
+  name: "decoder_7_relu"
+  type: "ReLU"
+  bottom: "decoder_7_bn"
+  top: "decoder_7"
+}
+
+
+
+
+
+
+
+
+
+
+######################################
+##            DECODER 6             ##
+######################################
+
+layer {
+  name: "decoder_6_concat"
+  type: "Concat"
+  bottom: "encoder_6"
+  bottom: "decoder_7"
+  top: "decoder_6_concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+
+layer {
+  name: "decoder_6_conv"
+  type: "Deconvolution"
+  bottom: "decoder_6_concat"
+  top: "decoder_6_conv"
+  convolution_param {
+    num_output: 512
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "decoder_6_conv"
+    top: "decoder_6_bn"
+    name: "decoder_6_bn"
+    type: "BatchNorm"
+}
+
+layer {
+  name: "decoder_6_drop"
+  type: "Dropout"
+  bottom: "decoder_6_bn"
+  top: "decoder_6_bn"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+
+layer {
+  name: "decoder_6_relu"
+  type: "ReLU"
+  bottom: "decoder_6_bn"
+  top: "decoder_6"
+}
+
+
+
+
+
+
+
+
+
+######################################
+##            DECODER 5             ##
+######################################
+
+layer {
+  name: "decoder_5_concat"
+  type: "Concat"
+  bottom: "encoder_5"
+  bottom: "decoder_6"
+  top: "decoder_5_concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+
+layer {
+  name: "decoder_5_conv"
+  type: "Deconvolution"
+  bottom: "decoder_5_concat"
+  top: "decoder_5_conv"
+  convolution_param {
+    num_output: 512
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "decoder_5_conv"
+    top: "decoder_5_bn"
+    name: "decoder_5_bn"
+    type: "BatchNorm"
+}
+
+
+layer {
+  name: "decoder_5_relu"
+  type: "ReLU"
+  bottom: "decoder_5_bn"
+  top: "decoder_5"
+}
+
+
+
+
+
+
+
+
+
+
+
+######################################
+##            DECODER 4             ##
+######################################
+
+layer {
+  name: "decoder_4_concat"
+  type: "Concat"
+  bottom: "encoder_4"
+  bottom: "decoder_5"
+  top: "decoder_4_concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+
+layer {
+  name: "decoder_4_conv"
+  type: "Deconvolution"
+  bottom: "decoder_4_concat"
+  top: "decoder_4_conv"
+  convolution_param {
+    num_output: 256
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+layer {
+    bottom: "decoder_4_conv"
+    top: "decoder_4_bn"
+    name: "decoder_4_bn"
+    type: "BatchNorm"
+}
+
+
+layer {
+  name: "decoder_4_relu"
+  type: "ReLU"
+  bottom: "decoder_4_bn"
+  top: "decoder_4"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+######################################
+##            DECODER 3             ##
+######################################
+
+layer {
+  name: "decoder_3_concat"
+  type: "Concat"
+  bottom: "encoder_3"
+  bottom: "decoder_4"
+  top: "decoder_3_concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+
+layer {
+  name: "decoder_3_conv"
+  type: "Deconvolution"
+  bottom: "decoder_3_concat"
+  top: "decoder_3"
+  convolution_param {
+    num_output: 128
+    kernel_size: 4
+    stride: 2
+    pad:1
+  }
+}
+
+
+
+
+#unfold depth
+layer {
+   name: "reshape_vox"
+    type: "Reshape"
+    bottom: "decoder_3"
+    top: "voxels_reshape"
+    reshape_param {
+      shape {
+        dim: 0  # copy the dimension from below
+        dim: 2
+        dim: 4096
+        dim: 64 # 
+      }
+    }
+  }
+
+
+
+layer {
+  name: "softmax_vox"
+  type: "Softmax"
+  bottom: "voxels_reshape"
+  top: "output_vox"
+
+}

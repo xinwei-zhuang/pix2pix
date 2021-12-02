@@ -1,0 +1,18 @@
+net: "train_pix2vox_64.prototxt"
+test_iter: 30
+test_interval: 1000
+base_lr: 0.0005
+lr_policy: "step"
+gamma: 0.5
+stepsize: 300000
+
+display: 1000
+max_iter: 1000000 
+
+momentum: 0.5
+momentum2 : 0.999
+delta:1e-8
+weight_decay: 0.0005
+snapshot: 10000
+snapshot_prefix: "snapshot_pix2vox_64"
+solver_mode: GPU
